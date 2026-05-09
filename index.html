@@ -2,26 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>✨ Starlight Love ✨</title>
     <style>
-        /* ========== GLOBAL STYLES ========== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'cursive', 'Comic Sans MS', sans-serif;
+        html, body {
+            width: 100%;
+            height: 100%;
             overflow: hidden;
             background: #0a0a1a;
-            height: 100vh;
-            width: 100vw;
+            font-family: 'cursive', 'Comic Sans MS', sans-serif;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
             user-select: none;
             -webkit-user-select: none;
-            transition: font-family 0.5s, direction 0.5s;
-            cursor: default;
         }
 
         body.lang-fa {
@@ -29,7 +28,6 @@
             direction: rtl;
         }
 
-        /* Canvas */
         #starCanvas {
             position: fixed;
             top: 0;
@@ -37,10 +35,8 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            display: block;
         }
 
-        /* ========== MAIN OVERLAY ========== */
         .overlay {
             position: relative;
             z-index: 10;
@@ -48,38 +44,38 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            height: 100%;
             pointer-events: none;
-            padding: 20px;
+            padding: 5vmin;
         }
 
         .overlay > * {
             pointer-events: auto;
         }
 
-        /* ========== LANGUAGE TOGGLE ========== */
         .lang-btn {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
+            top: 2vh;
+            right: 2vh;
+            width: 10vmin;
+            height: 10vmin;
+            max-width: 50px;
+            max-height: 50px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 215, 0, 0.3);
             color: #ffd700;
-            font-size: 14px;
+            font-size: clamp(12px, 3vmin, 14px);
             font-weight: bold;
             cursor: pointer;
             z-index: 200;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
             text-shadow: 0 0 8px #ffd700;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-            pointer-events: auto;
+            transition: 0.3s;
         }
 
         .lang-btn:hover {
@@ -88,97 +84,65 @@
             transform: scale(1.1);
         }
 
-        .lang-btn:active {
-            transform: scale(0.95);
-            transition: transform 0.1s;
-        }
-
-        /* ========== TITLE ========== */
         .title {
-            font-size: 3.5rem;
+            font-size: clamp(1.8rem, 8vmin, 3.5rem);
             color: #fff5e6;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 2vh;
             text-shadow: 0 0 20px #ffb6c1, 0 0 40px #ff69b4, 0 0 80px #ff1493;
             animation: titleGlow 3s ease-in-out infinite alternate, fadeInDown 1s ease-out;
-            letter-spacing: 2px;
             pointer-events: none;
         }
 
         @keyframes titleGlow {
-            0% {
-                text-shadow: 0 0 20px #ffb6c1, 0 0 40px #ff69b4, 0 0 80px #ff1493;
-            }
-            100% {
-                text-shadow: 0 0 30px #ffa07a, 0 0 60px #ff4500, 0 0 100px #ff1493;
-            }
+            0% { text-shadow: 0 0 20px #ffb6c1, 0 0 40px #ff69b4, 0 0 80px #ff1493; }
+            100% { text-shadow: 0 0 30px #ffa07a, 0 0 60px #ff4500, 0 0 100px #ff1493; }
         }
 
         @keyframes fadeInDown {
-            0% {
-                opacity: 0;
-                transform: translateY(-60px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(-6vh); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========== LOVE COUNTER ========== */
         .counter-container {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(5px);
             border-radius: 20px;
-            padding: 15px 30px;
-            margin: 15px 0;
+            padding: 2vmin 5vmin;
+            margin: 1.5vh 0;
             border: 1px solid rgba(255, 192, 203, 0.3);
             text-align: center;
             color: #ffe4e1;
-            font-size: 1.2rem;
+            font-size: clamp(0.9rem, 2.5vmin, 1.2rem);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 2s ease;
         }
 
         .counter-digits {
-            font-size: 2rem;
+            font-size: clamp(1.2rem, 5vmin, 2rem);
             font-weight: bold;
             color: #ffd700;
-            margin: 5px 0;
             display: flex;
-            gap: 10px;
+            gap: 1vmin;
             justify-content: center;
             flex-wrap: wrap;
+            margin: 1vmin 0;
         }
 
         .counter-digits span {
             background: rgba(255, 215, 0, 0.1);
-            padding: 5px 12px;
+            padding: 1vmin 2vmin;
             border-radius: 10px;
             border: 1px solid gold;
-            min-width: 70px;
-            display: inline-block;
+            min-width: 60px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        /* ========== CONSTELLATION HINT ========== */
         .constellation-info {
             color: #dcdcdc;
-            margin: 10px 0;
-            font-size: 1.1rem;
+            margin: 1vh 0;
+            font-size: clamp(0.8rem, 2vmin, 1.1rem);
             text-align: center;
             background: rgba(0, 0, 0, 0.4);
-            padding: 10px 25px;
+            padding: 1vmin 3vmin;
             border-radius: 30px;
             backdrop-filter: blur(4px);
         }
@@ -186,16 +150,14 @@
         .constellation-progress {
             color: #ffd700;
             font-weight: bold;
-            font-size: 1.3rem;
         }
 
-        /* ========== REVEALED MESSAGE (HIDDEN) ========== */
         .revealed-message {
             display: none;
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 6vmin, 2.2rem);
             color: #fffacd;
             text-align: center;
-            margin: 25px 0;
+            margin: 2vh 0;
             animation: heartBeat 1.5s infinite, glowPulse 2s infinite;
             text-shadow: 0 0 30px gold;
         }
@@ -205,45 +167,29 @@
         }
 
         @keyframes heartBeat {
-            0%,
-            40%,
-            80%,
-            100% {
-                transform: scale(1);
-            }
-            20%,
-            60% {
-                transform: scale(1.15);
-            }
+            0%, 40%, 80%, 100% { transform: scale(1); }
+            20%, 60% { transform: scale(1.15); }
         }
 
         @keyframes glowPulse {
-            0%,
-            100% {
-                text-shadow: 0 0 20px gold;
-            }
-            50% {
-                text-shadow: 0 0 40px #ffb6c1, 0 0 80px #ff69b4;
-            }
+            0%, 100% { text-shadow: 0 0 20px gold; }
+            50% { text-shadow: 0 0 40px #ffb6c1, 0 0 80px #ff69b4; }
         }
 
-        /* ========== ENVELOPE ========== */
         .envelope-wrapper {
             perspective: 1200px;
-            margin: 30px 0;
+            margin: 3vh 0;
+            display: flex;
+            justify-content: center;
         }
 
         .envelope {
             position: relative;
-            width: 320px;
-            height: 200px;
+            width: min(80vw, 320px);
+            aspect-ratio: 16 / 10;
+            max-width: 320px;
             cursor: pointer;
             transition: transform 0.3s;
-            transform-style: preserve-3d;
-        }
-
-        .envelope:hover {
-            transform: scale(1.02);
         }
 
         .envelope-body {
@@ -251,7 +197,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 120px;
+            height: 60%;
             background: linear-gradient(145deg, #f5d5e0, #e6b3c8);
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
@@ -265,26 +211,30 @@
             left: 0;
             width: 0;
             height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-top: 100px solid #f8c8d8;
+            border-left: 50% solid transparent;
+            border-right: 50% solid transparent;
+            border-bottom: 40% solid #f8c8d8;
+            border-top: none;
             z-index: 3;
             transform-origin: top center;
             transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.3));
+            /* Flap pointing down initially */
+            border-left-width: 50%;
+            border-right-width: 50%;
+            border-bottom-width: 50%;
         }
 
         .envelope.open .envelope-flap {
             transform: rotateX(180deg);
-            border-top-color: #f0a5bc;
+            border-bottom-color: #f0a5bc;
         }
 
         .letter-container {
             position: absolute;
-            bottom: 15px;
-            left: 20px;
-            width: 280px;
-            height: auto;
+            bottom: 8%;
+            left: 6%;
+            width: 88%;
             perspective: 1500px;
             z-index: 1;
             transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 0.5s;
@@ -294,36 +244,35 @@
         }
 
         .envelope.open .letter-container {
-            transform: translateY(-140px);
+            transform: translateY(-80%);
             opacity: 1;
             pointer-events: auto;
         }
 
         .letter-inner {
             position: relative;
-            width: 100%;
-            min-height: 180px;
             transform-style: preserve-3d;
             transition: transform 0.8s ease;
+            min-height: 140px;
         }
 
         .letter-inner.flipped {
             transform: rotateY(180deg);
         }
 
-        .letter-front,
-        .letter-back {
+        .letter-front, .letter-back {
             position: absolute;
             width: 100%;
-            min-height: 180px;
+            min-height: 140px;
             backface-visibility: hidden;
             background: #fffef0;
             border-radius: 12px;
-            padding: 20px;
+            padding: 4vmin;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
             border: 2px solid #f4c2c2;
-            font-family: 'cursive', sans-serif;
             color: #4a2c2c;
+            font-size: clamp(0.75rem, 2.5vmin, 1rem);
+            line-height: 1.5;
             box-sizing: border-box;
         }
 
@@ -333,151 +282,100 @@
             border: 2px solid #f4c2c2;
         }
 
-        .letter-front p,
-        .letter-back p {
-            margin: 8px 0;
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        .letter-front .greeting,
-        .letter-back .quote-label {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #b0306a;
-        }
-
         .flip-btn {
             position: absolute;
-            bottom: 10px;
-            right: 15px;
+            bottom: 1vmin;
+            right: 1vmin;
             background: #f8b6d0;
             border: none;
             border-radius: 15px;
-            padding: 5px 15px;
+            padding: 1vmin 3vmin;
             color: white;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             z-index: 5;
         }
 
         .letter-back .flip-btn {
-            left: 15px;
+            left: 1vmin;
             right: auto;
         }
 
-        .flip-btn:hover {
-            background: #ff8cb3;
-        }
-
-        /* ========== MUSIC PLAYER (FAKE) ========== */
         .player {
             position: fixed;
-            bottom: 30px;
-            left: 30px;
+            bottom: 2vh;
+            left: 2vw;
             background: rgba(20, 20, 40, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 15px;
+            padding: 2vmin;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 2vmin;
             z-index: 50;
             border: 1px solid rgba(255, 192, 203, 0.3);
             color: white;
-            box-shadow: 0 0 25px rgba(255, 105, 180, 0.2);
-            pointer-events: auto;
+            max-width: 180px;
         }
 
         .play-btn {
-            width: 40px;
-            height: 40px;
+            width: 9vmin;
+            height: 9vmin;
+            max-width: 40px;
+            max-height: 40px;
             border-radius: 50%;
             background: #ff69b4;
             border: none;
             color: white;
-            font-size: 20px;
+            font-size: 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
-            box-shadow: 0 0 15px #ff69b4;
-        }
-
-        .play-btn:hover {
-            background: #ff1493;
-            box-shadow: 0 0 25px #ff1493;
-            transform: scale(1.1);
         }
 
         .song-title {
-            font-size: 0.9rem;
-            margin-bottom: 5px;
+            font-size: 0.8rem;
         }
 
         .equalizer {
             display: flex;
-            gap: 3px;
-            height: 30px;
+            gap: 0.2vmin;
+            height: 4vmin;
             align-items: flex-end;
         }
 
         .bar {
-            width: 4px;
+            width: 0.6vmin;
             background: #ffb6c1;
-            height: 5px;
+            height: 1vmin;
             border-radius: 2px;
-            transition: height 0.1s;
-            box-shadow: 0 0 6px #ffb6c1;
         }
 
         .player.playing .bar {
             animation: equalize 0.9s infinite alternate;
         }
-
-        .player.playing .bar:nth-child(1) {
-            animation-delay: 0s;
-        }
-        .player.playing .bar:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-        .player.playing .bar:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-        .player.playing .bar:nth-child(4) {
-            animation-delay: 0.3s;
-        }
-        .player.playing .bar:nth-child(5) {
-            animation-delay: 0.4s;
-        }
-        .player.playing .bar:nth-child(6) {
-            animation-delay: 0.5s;
-        }
-        .player.playing .bar:nth-child(7) {
-            animation-delay: 0.6s;
-        }
-        .player.playing .bar:nth-child(8) {
-            animation-delay: 0.7s;
-        }
+        .player.playing .bar:nth-child(1) { animation-delay: 0s; }
+        .player.playing .bar:nth-child(2) { animation-delay: 0.1s; }
+        .player.playing .bar:nth-child(3) { animation-delay: 0.2s; }
+        .player.playing .bar:nth-child(4) { animation-delay: 0.3s; }
+        .player.playing .bar:nth-child(5) { animation-delay: 0.4s; }
+        .player.playing .bar:nth-child(6) { animation-delay: 0.5s; }
+        .player.playing .bar:nth-child(7) { animation-delay: 0.6s; }
+        .player.playing .bar:nth-child(8) { animation-delay: 0.7s; }
 
         @keyframes equalize {
-            0% {
-                height: 5px;
-            }
-            100% {
-                height: 30px;
-            }
+            0% { height: 1vmin; }
+            100% { height: 4vmin; }
         }
 
         .progress-bar {
-            width: 120px;
+            width: 100%;
             height: 4px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 2px;
-            margin-top: 5px;
+            margin-top: 1vmin;
         }
 
         .progress-fill {
@@ -485,59 +383,47 @@
             height: 100%;
             background: #ff69b4;
             border-radius: 2px;
-            transition: width 0.3s linear;
         }
 
-        /* ========== WISH INPUT ========== */
         .wish-container {
             position: fixed;
-            bottom: 40px;
-            right: 30px;
+            bottom: 2vh;
+            right: 2vw;
             display: flex;
-            gap: 10px;
+            gap: 2vmin;
             z-index: 50;
-            pointer-events: auto;
             align-items: center;
         }
 
         .wish-input {
-            padding: 10px 15px;
+            padding: 2vmin;
             border-radius: 25px;
             border: 1px solid rgba(255, 215, 0, 0.5);
             background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
             color: white;
             outline: none;
-            width: 180px;
-            transition: box-shadow 0.3s;
-        }
-
-        .wish-input:focus {
-            box-shadow: 0 0 15px gold;
+            width: 35vw;
+            max-width: 180px;
+            font-size: 0.9rem;
         }
 
         .wish-btn {
             background: linear-gradient(45deg, #ffb6c1, #ff69b4);
             border: none;
             border-radius: 25px;
-            padding: 10px 18px;
+            padding: 2vmin 3vmin;
             color: white;
             font-weight: bold;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 0 12px #ff69b4;
+            font-size: 0.8rem;
         }
 
-        .wish-btn:hover {
-            background: linear-gradient(45deg, #ff69b4, #ff1493);
-            box-shadow: 0 0 20px #ff1493;
-        }
-
-        /* ========== FLOATING HEARTS ========== */
         .heart {
             position: fixed;
-            width: 24px;
-            height: 24px;
+            width: 6vmin;
+            height: 6vmin;
+            max-width: 24px;
+            max-height: 24px;
             background: #ff4d6d;
             transform: rotate(-45deg);
             animation: floatUp 4s ease-in forwards;
@@ -546,102 +432,33 @@
             opacity: 0.9;
         }
 
-        .heart::before,
-        .heart::after {
+        .heart::before, .heart::after {
             content: '';
             position: absolute;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
             background: #ff4d6d;
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
         }
 
-        .heart::before {
-            top: -12px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: 12px;
-            top: 0;
-        }
+        .heart::before { top: -50%; left: 0; }
+        .heart::after  { left: 50%; top: 0; }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(-45deg) scale(0.5);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-110vh) rotate(-45deg) scale(1.2);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(-45deg) scale(0.5); opacity: 1; }
+            100% { transform: translateY(-110vh) rotate(-45deg) scale(1.2); opacity: 0; }
         }
 
-        /* Shooting star overlay (rare) */
-        .shooting-star-overlay {
-            position: fixed;
-            width: 120px;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0), white);
-            top: 20%;
-            left: -120px;
-            animation: shootLine 3s linear infinite;
-            z-index: 5;
-            pointer-events: none;
-            opacity: 0.8;
-        }
-
-        @keyframes shootLine {
-            0% {
-                transform: translateX(0) translateY(0);
-                opacity: 0.9;
-            }
-            80% {
-                opacity: 0.1;
-            }
-            100% {
-                transform: translateX(110vw) translateY(50vh);
-                opacity: 0;
-            }
-        }
-
-        /* ========== RESPONSIVE ========== */
-        @media (max-width: 600px) {
-            .title {
-                font-size: 2rem;
-            }
-            .envelope {
-                width: 260px;
-                height: 160px;
-            }
-            .envelope-body {
-                height: 100px;
-            }
-            .envelope-flap {
-                border-left: 130px solid transparent;
-                border-right: 130px solid transparent;
-                border-top: 80px solid #f8c8d8;
-            }
-            .letter-container {
-                width: 220px;
-                left: 20px;
-            }
-            .letter-front,
-            .letter-back {
-                padding: 15px;
-            }
+        @keyframes wishFloat {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-30vh) scale(1.3); }
         }
     </style>
 </head>
 <body>
-
-    <!-- Canvas for starfield -->
     <canvas id="starCanvas"></canvas>
-
-    <!-- Language Toggle -->
     <button class="lang-btn" id="langToggle" data-lang="langBtn">فارسی</button>
 
-    <!-- Main overlay -->
     <div class="overlay">
         <h1 class="title" data-lang="title">✨ To My Dearest Love ✨</h1>
 
@@ -650,7 +467,7 @@
             <div class="counter-digits" id="counterDigits">
                 <span id="daysVal">0</span> : <span id="hoursVal">0</span> : <span id="minsVal">0</span> : <span id="secsVal">0</span>
             </div>
-            <div style="font-size:0.8rem;">
+            <div>
                 <span data-lang="days">days</span> : <span data-lang="hours">hours</span> : <span data-lang="minutes">minutes</span> : <span data-lang="seconds">seconds</span>
             </div>
         </div>
@@ -662,7 +479,6 @@
 
         <div class="revealed-message" id="revealedMsg" data-lang="messageRevealed">🌌 I Love You More Than All The Stars 🌌</div>
 
-        <!-- Envelope with letter -->
         <div class="envelope-wrapper">
             <div class="envelope" id="envelope">
                 <div class="envelope-flap"></div>
@@ -686,7 +502,6 @@
         </div>
     </div>
 
-    <!-- Fake music player -->
     <div class="player" id="player">
         <button class="play-btn" id="playBtn">▶</button>
         <div>
@@ -699,7 +514,6 @@
         </div>
     </div>
 
-    <!-- Wish input -->
     <div class="wish-container">
         <input type="text" class="wish-input" id="wishInput" data-lang-placeholder="wishPlaceholder" placeholder="Type your wish...">
         <button class="wish-btn" id="wishBtn" data-lang="wishButton">Send to the stars</button>
@@ -707,23 +521,23 @@
 
     <script>
         (function() {
-            // ==================== LANGUAGE SYSTEM ====================
-            const i18n = {
+            // Polyfill for requestAnimationFrame
+            var requestAF = window.requestAnimationFrame || function(cb){ setTimeout(cb, 16); };
+
+            // LANGUAGE
+            var i18n = {
                 en: {
                     title: "✨ To My Dearest Love ✨",
                     langBtn: "فارسی",
                     daysTogether: "We've been together for",
-                    days: "days",
-                    hours: "hours",
-                    minutes: "minutes",
-                    seconds: "seconds",
+                    days: "days", hours: "hours", minutes: "minutes", seconds: "seconds",
                     hint: "Find the 20 hidden stars to reveal a special message",
                     messageRevealed: "🌌 I Love You More Than All The Stars 🌌",
                     letterGreeting: "My Love,",
                     letterBody: "From the moment our stars aligned, my universe has been filled with your light. Every heartbeat whispers your name.",
                     letterClosing: "Forever yours,",
                     quoteLabel: "A special quote:",
-                    quoteText: "You are the finest, loveliest, tenderest, and most beautiful person I have ever known—and even that is an understatement.",
+                    quoteText: "\"You are the finest, loveliest, tenderest, and most beautiful person I have ever known—and even that is an understatement.\"",
                     songTitle: "Endless Love",
                     wishPlaceholder: "Type your wish...",
                     wishButton: "Send to the stars",
@@ -737,17 +551,14 @@
                     title: "✨ به عزیزترین عشقم ✨",
                     langBtn: "English",
                     daysTogether: "ما با هم بوده‌ایم",
-                    days: "روز",
-                    hours: "ساعت",
-                    minutes: "دقیقه",
-                    seconds: "ثانیه",
+                    days: "روز", hours: "ساعت", minutes: "دقیقه", seconds: "ثانیه",
                     hint: "۲۰ ستاره پنهان را پیدا کن تا پیام ویژه آشکار شود",
                     messageRevealed: "🌌 بیشتر از تمام ستاره‌ها دوستت دارم 🌌",
                     letterGreeting: "عشق من،",
                     letterBody: "از لحظه‌ای که ستاره‌های ما هم‌راستا شدند، دنیای من با نور تو پر شده است. هر تپش قلب نام تو را زمزمه می‌کند.",
                     letterClosing: "تا ابد مال تو،",
                     quoteLabel: "یک نقل‌قول خاص:",
-                    quoteText: "تو بهترین، دوست‌داشتنی‌ترین، لطیف‌ترین و زیباترین کسی هستی که تا به حال شناخته‌ام - و حتی این هم کم‌گویی است.",
+                    quoteText: "\"تو بهترین، دوست‌داشتنی‌ترین، لطیف‌ترین و زیباترین کسی هستی که تا به حال شناخته‌ام - و حتی این هم کم‌گویی است.\"",
                     songTitle: "عشق بی‌پایان",
                     wishPlaceholder: "آرزویت را بنویس...",
                     wishButton: "به ستاره‌ها بفرست",
@@ -758,564 +569,467 @@
                     playBtnPause: "⏸"
                 }
             };
-
-            let currentLang = 'en';
+            var currentLang = 'en';
+            var playBtnEl = document.getElementById('playBtn');
+            var langToggleEl = document.getElementById('langToggle');
 
             function applyLanguage(lang) {
                 document.body.classList.toggle('lang-fa', lang === 'fa');
-                // Update elements with data-lang
-                document.querySelectorAll('[data-lang]').forEach(el => {
-                    const key = el.getAttribute('data-lang');
-                    if (i18n[lang] && i18n[lang][key]) {
-                        el.textContent = i18n[lang][key];
-                    }
-                });
-                // Update placeholders
-                document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
-                    const key = el.getAttribute('data-lang-placeholder');
-                    if (i18n[lang] && i18n[lang][key]) {
-                        el.placeholder = i18n[lang][key];
-                    }
-                });
-                // Update flip buttons
-                const flipFrontBtn = document.getElementById('flipToBack');
-                const flipBackBtn = document.getElementById('flipToFront');
-                if (flipFrontBtn) flipFrontBtn.textContent = i18n[lang].flipFront;
-                if (flipBackBtn) flipBackBtn.textContent = i18n[lang].flipBack;
-                // Update progress text
-                updateConstellationProgress();
-                // Update play button if needed (it's static now)
+                var elements = document.querySelectorAll('[data-lang]');
+                for (var i = 0; i < elements.length; i++) {
+                    var el = elements[i];
+                    var key = el.getAttribute('data-lang');
+                    if (i18n[lang][key]) el.textContent = i18n[lang][key];
+                }
+                var placeholders = document.querySelectorAll('[data-lang-placeholder]');
+                for (var j = 0; j < placeholders.length; j++) {
+                    var el2 = placeholders[j];
+                    var key2 = el2.getAttribute('data-lang-placeholder');
+                    if (i18n[lang][key2]) el2.placeholder = i18n[lang][key2];
+                }
+                document.getElementById('flipToBack').textContent = i18n[lang].flipFront;
+                document.getElementById('flipToFront').textContent = i18n[lang].flipBack;
+                updateConstProgressText();
+                updatePlayBtnText();
             }
 
-            document.getElementById('langToggle').addEventListener('click', () => {
+            function updatePlayBtnText() {
+                if (playing) playBtnEl.textContent = i18n[currentLang].playBtnPause;
+                else playBtnEl.textContent = i18n[currentLang].playBtnPlay;
+            }
+
+            langToggleEl.addEventListener('click', function() {
                 currentLang = currentLang === 'en' ? 'fa' : 'en';
                 applyLanguage(currentLang);
-                document.getElementById('langToggle').textContent = i18n[currentLang].langBtn;
+                langToggleEl.textContent = i18n[currentLang].langBtn;
             });
 
-            // Initial apply
+            // Initial
             applyLanguage('en');
-            document.getElementById('langToggle').textContent = i18n.en.langBtn;
+            langToggleEl.textContent = i18n.en.langBtn;
 
-            // ==================== CANVAS STARFIELD ====================
-            const canvas = document.getElementById('starCanvas');
-            const ctx = canvas.getContext('2d');
-            let width, height;
-            let mouseX = 0,
-                mouseY = 0;
-            let targetMouseX = 0,
-                targetMouseY = 0;
+            // CANVAS & STARS
+            var canvas = document.getElementById('starCanvas');
+            var ctx = canvas.getContext('2d');
+            var width, height;
+            var mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0;
 
             function resizeCanvas() {
                 width = window.innerWidth;
                 height = window.innerHeight;
                 canvas.width = width;
                 canvas.height = height;
+                generateConstellation(); // re-place constellation
+                updateConstProgressText();
             }
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
 
-            // Star classes
-            class Star {
-                constructor(layer) {
-                    this.layer = layer; // 'far', 'mid', 'near'
-                    this.reset();
-                }
-                reset() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    if (this.layer === 'far') {
-                        this.radius = Math.random() * 1.2 + 0.4;
-                        this.parallax = 0.02;
-                        this.baseOpacity = 0.5;
-                        this.twinkleSpeed = 0.005;
-                    } else if (this.layer === 'mid') {
-                        this.radius = Math.random() * 2 + 0.8;
-                        this.parallax = 0.06;
-                        this.baseOpacity = 0.8;
-                        this.twinkleSpeed = 0.01;
-                    } else {
-                        this.radius = Math.random() * 3 + 1.5;
-                        this.parallax = 0.12;
-                        this.baseOpacity = 1;
-                        this.twinkleSpeed = 0.02;
-                    }
-                    this.phase = Math.random() * Math.PI * 2;
-                    this.color = '#ffffff';
-                }
-                update(mx, my) {
-                    // parallax: move towards mouse slightly
-                    const dx = (mx - width / 2) * this.parallax;
-                    const dy = (my - height / 2) * this.parallax;
-                    this.drawX = this.x + dx;
-                    this.drawY = this.y + dy;
-                    // wrap around edges
-                    if (this.drawX < -10) this.drawX += width + 20;
-                    if (this.drawX > width + 10) this.drawX -= width + 20;
-                    if (this.drawY < -10) this.drawY += height + 20;
-                    if (this.drawY > height + 10) this.drawY -= height + 20;
-                }
-                draw(ctx, time) {
-                    const twinkle = Math.sin(time * this.twinkleSpeed + this.phase) * 0.4 + 0.6;
-                    const alpha = this.baseOpacity * twinkle;
-                    ctx.beginPath();
-                    ctx.arc(this.drawX, this.drawY, this.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(255,255,255,${alpha})`;
-                    ctx.fill();
-                    // glow for near stars
-                    if (this.layer === 'near' && this.radius > 2) {
-                        ctx.shadowColor = 'white';
-                        ctx.shadowBlur = 4;
-                        ctx.fill();
-                        ctx.shadowBlur = 0;
-                    }
-                }
+            // Star constructor (ES5)
+            function Star(layer) {
+                this.layer = layer;
+                this.reset();
             }
-
-            const stars = [];
-            const NUM_STARS_FAR = 200;
-            const NUM_STARS_MID = 150;
-            const NUM_STARS_NEAR = 70;
-
-            for (let i = 0; i < NUM_STARS_FAR; i++) stars.push(new Star('far'));
-            for (let i = 0; i < NUM_STARS_MID; i++) stars.push(new Star('mid'));
-            for (let i = 0; i < NUM_STARS_NEAR; i++) stars.push(new Star('near'));
-
-            // Shooting star canvas
-            class ShootingStar {
-                constructor() {
-                    this.reset();
+            Star.prototype.reset = function() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                if (this.layer === 'far') {
+                    this.radius = Math.random() * 1.2 + 0.4;
+                    this.parallax = 0.02;
+                    this.baseOpacity = 0.5;
+                    this.twinkleSpeed = 0.005;
+                } else if (this.layer === 'mid') {
+                    this.radius = Math.random() * 2 + 0.8;
+                    this.parallax = 0.06;
+                    this.baseOpacity = 0.8;
+                    this.twinkleSpeed = 0.01;
+                } else {
+                    this.radius = Math.random() * 3 + 1.5;
+                    this.parallax = 0.12;
+                    this.baseOpacity = 1;
+                    this.twinkleSpeed = 0.02;
                 }
-                reset() {
+                this.phase = Math.random() * Math.PI * 2;
+            };
+            Star.prototype.update = function(mx, my) {
+                var dx = (mx - width / 2) * this.parallax;
+                var dy = (my - height / 2) * this.parallax;
+                this.drawX = this.x + dx;
+                this.drawY = this.y + dy;
+                if (this.drawX < -10) this.drawX += width + 20;
+                if (this.drawX > width + 10) this.drawX -= width + 20;
+                if (this.drawY < -10) this.drawY += height + 20;
+                if (this.drawY > height + 10) this.drawY -= height + 20;
+            };
+            Star.prototype.draw = function(ctx, time) {
+                var twinkle = Math.sin(time * this.twinkleSpeed + this.phase) * 0.4 + 0.6;
+                var alpha = this.baseOpacity * twinkle;
+                ctx.beginPath();
+                ctx.arc(this.drawX, this.drawY, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
+                ctx.fill();
+                if (this.layer === 'near' && this.radius > 2) {
+                    ctx.shadowColor = 'white';
+                    ctx.shadowBlur = 4;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            };
+
+            var stars = [];
+            for (var i = 0; i < 200; i++) stars.push(new Star('far'));
+            for (var j = 0; j < 150; j++) stars.push(new Star('mid'));
+            for (var k = 0; k < 70; k++) stars.push(new Star('near'));
+
+            // Shooting star (ES5)
+            function ShootingStar() {
+                this.reset();
+            }
+            ShootingStar.prototype.reset = function() {
+                this.active = false;
+                this.x = Math.random() * width * 0.5;
+                this.y = Math.random() * height * 0.4;
+                this.length = Math.random() * 80 + 40;
+                this.speed = Math.random() * 12 + 8;
+                this.angle = Math.PI / 4 + (Math.random() - 0.5) * 0.5;
+                this.progress = 0;
+                this.opacity = 1;
+            };
+            ShootingStar.prototype.update = function() {
+                if (!this.active) return;
+                this.progress += this.speed / (this.length * 0.7);
+                if (this.progress >= 1) {
                     this.active = false;
-                    this.x = Math.random() * width * 0.5;
-                    this.y = Math.random() * height * 0.4;
-                    this.length = Math.random() * 80 + 40;
-                    this.speed = Math.random() * 12 + 8;
-                    this.angle = Math.PI / 4 + (Math.random() - 0.5) * 0.5;
-                    this.progress = 0;
-                    this.opacity = 1;
+                    var self = this;
+                    setTimeout(function() { self.reset(); }, Math.random() * 5000 + 3000);
                 }
-                update() {
-                    if (!this.active) return;
-                    this.progress += this.speed / (this.length * 0.7);
-                    if (this.progress >= 1) {
-                        this.active = false;
-                        setTimeout(() => this.reset(), Math.random() * 5000 + 3000);
-                    }
-                }
-                draw(ctx) {
-                    if (!this.active) return;
-                    const startX = this.x + Math.cos(this.angle) * this.progress * this.length;
-                    const startY = this.y + Math.sin(this.angle) * this.progress * this.length;
-                    const endX = startX - Math.cos(this.angle) * this.length * 0.6;
-                    const endY = startY - Math.sin(this.angle) * this.length * 0.6;
-                    const gradient = ctx.createLinearGradient(startX, startY, endX, endY);
-                    gradient.addColorStop(0, `rgba(255,255,255,${this.opacity})`);
-                    gradient.addColorStop(1, 'rgba(255,255,255,0)');
-                    ctx.beginPath();
-                    ctx.moveTo(startX, startY);
-                    ctx.lineTo(endX, endY);
-                    ctx.strokeStyle = gradient;
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-                    // head glow
-                    ctx.beginPath();
-                    ctx.arc(startX, startY, 3, 0, Math.PI * 2);
-                    ctx.fillStyle = 'white';
-                    ctx.fill();
-                }
-                launch() {
-                    this.active = true;
-                    this.progress = 0;
-                    this.x = Math.random() * width * 0.7;
-                    this.y = Math.random() * height * 0.3;
-                    this.opacity = Math.random() * 0.5 + 0.5;
-                }
+            };
+            ShootingStar.prototype.draw = function(ctx) {
+                if (!this.active) return;
+                var startX = this.x + Math.cos(this.angle) * this.progress * this.length;
+                var startY = this.y + Math.sin(this.angle) * this.progress * this.length;
+                var endX = startX - Math.cos(this.angle) * this.length * 0.6;
+                var endY = startY - Math.sin(this.angle) * this.length * 0.6;
+                var grad = ctx.createLinearGradient(startX, startY, endX, endY);
+                grad.addColorStop(0, 'rgba(255,255,255,' + this.opacity + ')');
+                grad.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.beginPath();
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(endX, endY);
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(startX, startY, 3, 0, Math.PI*2);
+                ctx.fillStyle = 'white';
+                ctx.fill();
+            };
+            ShootingStar.prototype.launch = function() {
+                this.active = true;
+                this.progress = 0;
+                this.x = Math.random() * width * 0.7;
+                this.y = Math.random() * height * 0.3;
+                this.opacity = Math.random() * 0.5 + 0.5;
+            };
+            var shootingStar = new ShootingStar();
+            setTimeout(function() { shootingStar.launch(); }, 2000);
+
+            // Firework particle (ES5)
+            function FireworkParticle(x, y) {
+                this.x = x;
+                this.y = y;
+                var angle = Math.random() * Math.PI * 2;
+                var speed = Math.random() * 5 + 2;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.life = 1;
+                this.decay = 0.01 + Math.random() * 0.02;
+                this.size = Math.random() * 4 + 2;
+                this.color = 'hsl(' + (Math.random() * 30 + 340) + ', 100%, 70%)';
+            }
+            FireworkParticle.prototype.update = function() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vy += 0.05;
+                this.life -= this.decay;
+            };
+            FireworkParticle.prototype.draw = function(ctx) {
+                ctx.globalAlpha = this.life;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            };
+            var particles = [];
+
+            function spawnFireworks(x, y) {
+                for (var i = 0; i < 80; i++) particles.push(new FireworkParticle(x, y));
             }
 
-            const shootingStar = new ShootingStar();
-            setTimeout(() => shootingStar.launch(), 2000);
-
-            // Constellation puzzle data
-            const constellationPoints = [];
-            const totalConstStars = 20;
-            let constellationActive = []; // boolean array
-            let activeCount = 0;
-            const heartCenterX = () => width * 0.65;
-            const heartCenterY = () => height * 0.45;
-            const heartScale = () => Math.min(width, height) * 0.25;
+            // Constellation
+            var totalConstStars = 20;
+            var constellationPoints = [];
+            var constellationActive = [];
+            var activeCount = 0;
 
             function generateConstellation() {
-                constellationPoints.length = 0;
-                const cx = heartCenterX();
-                const cy = heartCenterY();
-                const scale = heartScale();
-                for (let i = 0; i < totalConstStars; i++) {
-                    const t = (i / totalConstStars) * Math.PI * 2;
-                    // Heart parametric: x = 16 sin^3(t), y = 13cos(t)-5cos(2t)-2cos(3t)-cos(4t)
-                    const xRaw = 16 * Math.pow(Math.sin(t), 3);
-                    const yRaw = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
-                    // Normalize
-                    const xNorm = xRaw / 16;
-                    const yNorm = yRaw / 16;
-                    const px = cx + xNorm * scale * 1.2;
-                    const py = cy - yNorm * scale * 1.2;
+                constellationPoints = [];
+                var cx = width * 0.65;
+                var cy = height * 0.45;
+                var scale = Math.min(width, height) * 0.25;
+                for (var i = 0; i < totalConstStars; i++) {
+                    var t = (i / totalConstStars) * Math.PI * 2;
+                    var xRaw = 16 * Math.pow(Math.sin(t), 3);
+                    var yRaw = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+                    var px = cx + (xRaw/16) * scale * 1.2;
+                    var py = cy - (yRaw/16) * scale * 1.2;
                     constellationPoints.push({ x: px, y: py, order: i });
                 }
-                // Sort by angle around center to get nice order
-                constellationPoints.sort((a, b) => {
-                    const angA = Math.atan2(a.y - cy, a.x - cx);
-                    const angB = Math.atan2(b.y - cy, b.x - cx);
-                    return angA - angB;
+                constellationPoints.sort(function(a, b) {
+                    return Math.atan2(a.y-cy, a.x-cx) - Math.atan2(b.y-cy, b.x-cx);
                 });
-                // reassign order after sort
-                constellationPoints.forEach((p, idx) => p.order = idx);
+                for (var i2 = 0; i2 < totalConstStars; i2++) constellationPoints[i2].order = i2;
                 constellationActive = new Array(totalConstStars).fill(false);
                 activeCount = 0;
+                document.getElementById('revealedMsg').classList.remove('show');
             }
-            generateConstellation();
-            window.addEventListener('resize', () => {
-                generateConstellation();
-            });
 
             function getTargetStar() {
-                for (let i = 0; i < totalConstStars; i++) {
+                for (var i = 0; i < totalConstStars; i++) {
                     if (!constellationActive[i]) return constellationPoints[i];
                 }
                 return null;
             }
 
-            function updateConstellationProgress() {
-                const el = document.getElementById('constProgress');
-                if (el) {
-                    const prefix = i18n[currentLang].progressText || "Stars found: ";
-                    el.textContent = `${prefix}${activeCount}/${totalConstStars}`;
-                }
+            function updateConstProgressText() {
+                var el = document.getElementById('constProgress');
+                if (el) el.textContent = (i18n[currentLang].progressText || "Stars found: ") + activeCount + '/' + totalConstStars;
             }
 
-            // Canvas click for constellation
-            canvas.addEventListener('click', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                const scaleX = width / rect.width;
-                const scaleY = height / rect.height;
-                const clickX = (e.clientX - rect.left) * scaleX;
-                const clickY = (e.clientY - rect.top) * scaleY;
-                const target = getTargetStar();
+            // Canvas click handler – works on touch too
+            function handleCanvasTap(clientX, clientY) {
+                var rect = canvas.getBoundingClientRect();
+                var scaleX = canvas.width / rect.width;
+                var scaleY = canvas.height / rect.height;
+                var clickX = (clientX - rect.left) * scaleX;
+                var clickY = (clientY - rect.top) * scaleY;
+
+                var target = getTargetStar();
                 if (!target) return;
-                const dist = Math.hypot(clickX - target.x, clickY - target.y);
-                const hitRadius = 20;
-                if (dist < hitRadius) {
-                    // Activate this star
+                var dist = Math.sqrt(Math.pow(clickX - target.x, 2) + Math.pow(clickY - target.y, 2));
+                if (dist < 20) {
                     constellationActive[target.order] = true;
                     activeCount++;
-                    updateConstellationProgress();
-                    // If all found
+                    updateConstProgressText();
                     if (activeCount === totalConstStars) {
                         document.getElementById('revealedMsg').classList.add('show');
                         spawnFireworks(target.x, target.y);
                     }
                 }
+            }
+
+            canvas.addEventListener('click', function(e) {
+                handleCanvasTap(e.clientX, e.clientY);
             });
+            canvas.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                var touch = e.touches[0];
+                if (touch) handleCanvasTap(touch.clientX, touch.clientY);
+            }, {passive: false});
 
-            // Fireworks particles
-            const particles = [];
-            class FireworkParticle {
-                constructor(x, y) {
-                    this.x = x;
-                    this.y = y;
-                    const angle = Math.random() * Math.PI * 2;
-                    const speed = Math.random() * 5 + 2;
-                    this.vx = Math.cos(angle) * speed;
-                    this.vy = Math.sin(angle) * speed;
-                    this.life = 1;
-                    this.decay = 0.01 + Math.random() * 0.02;
-                    this.size = Math.random() * 4 + 2;
-                    this.color = `hsl(${Math.random() * 30 + 340}, 100%, 70%)`; // pink/gold
-                }
-                update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    this.vy += 0.05; // gravity
-                    this.life -= this.decay;
-                }
-                draw(ctx) {
-                    ctx.globalAlpha = this.life;
-                    ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.globalAlpha = 1;
-                }
-            }
-
-            function spawnFireworks(x, y) {
-                for (let i = 0; i < 80; i++) {
-                    particles.push(new FireworkParticle(x, y));
-                }
-            }
-
-            // ==================== ANIMATION LOOP ====================
-            let lastTime = 0;
-            let timeAcc = 0;
-
+            // ANIMATION LOOP
+            var lastTime = 0, timeAcc = 0;
             function animate(timestamp) {
                 if (!lastTime) lastTime = timestamp;
-                const dt = timestamp - lastTime;
+                var dt = timestamp - lastTime;
                 lastTime = timestamp;
-                timeAcc += dt * 0.001; // seconds
+                timeAcc += dt * 0.001;
 
-                // Smooth mouse
                 mouseX += (targetMouseX - mouseX) * 0.05;
                 mouseY += (targetMouseY - mouseY) * 0.05;
-
                 ctx.clearRect(0, 0, width, height);
 
-                // Draw stars
-                stars.forEach(star => {
-                    star.update(mouseX, mouseY);
-                    star.draw(ctx, timeAcc);
-                });
+                for (var s = 0; s < stars.length; s++) {
+                    stars[s].update(mouseX, mouseY);
+                    stars[s].draw(ctx, timeAcc);
+                }
 
-                // Draw constellation stars and lines
-                const target = getTargetStar();
-                constellationPoints.forEach((point, idx) => {
-                    const isActive = constellationActive[idx];
-                    const isTarget = target && target.order === idx;
-                    // Draw star
+                var target = getTargetStar();
+                for (var p = 0; p < constellationPoints.length; p++) {
+                    var pt = constellationPoints[p];
+                    var active = constellationActive[pt.order];
+                    var isTarget = target && target.order === pt.order;
                     ctx.beginPath();
-                    ctx.arc(point.x, point.y, isActive ? 5 : 4, 0, Math.PI * 2);
-                    ctx.fillStyle = isActive ? '#ffd700' : '#ffb6c1';
-                    ctx.shadowColor = isActive ? 'gold' : '#ff69b4';
-                    ctx.shadowBlur = isActive ? 10 : 6;
+                    ctx.arc(pt.x, pt.y, active ? 5 : 4, 0, Math.PI*2);
+                    ctx.fillStyle = active ? '#ffd700' : '#ffb6c1';
+                    ctx.shadowColor = active ? 'gold' : '#ff69b4';
+                    ctx.shadowBlur = active ? 10 : 6;
                     ctx.fill();
                     ctx.shadowBlur = 0;
-                    // Pulse for target
-                    if (isTarget && !isActive) {
+                    if (isTarget && !active) {
                         ctx.beginPath();
-                        ctx.arc(point.x, point.y, 12 + Math.sin(timeAcc * 5) * 3, 0, Math.PI * 2);
+                        ctx.arc(pt.x, pt.y, 12 + Math.sin(timeAcc*5)*3, 0, Math.PI*2);
                         ctx.strokeStyle = 'rgba(255,215,0,0.6)';
                         ctx.lineWidth = 2;
-                        ctx.setLineDash([4, 4]);
+                        ctx.setLineDash([4,4]);
                         ctx.stroke();
                         ctx.setLineDash([]);
                     }
-                });
-
-                // Draw lines between consecutive active constellation stars (in order)
+                }
+                // lines
                 ctx.strokeStyle = 'rgba(255,215,0,0.6)';
                 ctx.lineWidth = 2;
                 ctx.shadowColor = 'gold';
                 ctx.shadowBlur = 6;
-                for (let i = 0; i < totalConstStars - 1; i++) {
-                    const starA = constellationPoints[i];
-                    const starB = constellationPoints[i + 1];
-                    if (constellationActive[starA.order] && constellationActive[starB.order]) {
-                        ctx.beginPath();
-                        ctx.moveTo(starA.x, starA.y);
-                        ctx.lineTo(starB.x, starB.y);
-                        ctx.stroke();
+                for (var l = 0; l < totalConstStars-1; l++) {
+                    var a = constellationPoints[l], b = constellationPoints[l+1];
+                    if (constellationActive[a.order] && constellationActive[b.order]) {
+                        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
                     }
                 }
                 ctx.shadowBlur = 0;
 
-                // Shooting star
                 shootingStar.update();
                 shootingStar.draw(ctx);
 
-                // Fireworks particles
-                for (let i = particles.length - 1; i >= 0; i--) {
-                    particles[i].update();
-                    particles[i].draw(ctx);
-                    if (particles[i].life <= 0) particles.splice(i, 1);
+                for (var f = particles.length-1; f >= 0; f--) {
+                    particles[f].update();
+                    particles[f].draw(ctx);
+                    if (particles[f].life <= 0) particles.splice(f,1);
                 }
 
-                requestAnimationFrame(animate);
+                requestAF(animate);
             }
 
-            // Mouse move listener
-            window.addEventListener('mousemove', (e) => {
+            window.addEventListener('mousemove', function(e) {
                 targetMouseX = e.clientX;
                 targetMouseY = e.clientY;
             });
+            window.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                var t = e.touches[0];
+                if (t) { targetMouseX = t.clientX; targetMouseY = t.clientY; }
+            }, {passive: false});
 
-            // Launch shooting stars periodically
-            setInterval(() => {
-                if (!shootingStar.active && Math.random() < 0.6) {
-                    shootingStar.launch();
-                }
+            setInterval(function() {
+                if (!shootingStar.active && Math.random() < 0.6) shootingStar.launch();
             }, 6000);
 
-            // ==================== ENVELOPE INTERACTION ====================
-            const envelope = document.getElementById('envelope');
-            envelope.addEventListener('click', (e) => {
-                // Prevent toggle when clicking on flip buttons
+            // ENVELOPE
+            var envelope = document.getElementById('envelope');
+            envelope.addEventListener('click', function(e) {
                 if (e.target.classList.contains('flip-btn')) return;
                 envelope.classList.toggle('open');
                 if (envelope.classList.contains('open')) {
-                    // burst hearts
-                    for (let i = 0; i < 10; i++) {
-                        setTimeout(() => spawnHeartAt(window.innerWidth / 2, window.innerHeight / 2 - 60), i * 80);
+                    for (var i = 0; i < 10; i++) {
+                        setTimeout(function() {
+                            spawnHeartAt(window.innerWidth/2, window.innerHeight/2 - 60);
+                        }, i*80);
                     }
                 }
             });
 
-            // Letter flip
-            const letterInner = document.getElementById('letterInner');
-            document.getElementById('flipToBack').addEventListener('click', (e) => {
+            var letterInner = document.getElementById('letterInner');
+            document.getElementById('flipToBack').addEventListener('click', function(e) {
                 e.stopPropagation();
                 letterInner.classList.add('flipped');
             });
-            document.getElementById('flipToFront').addEventListener('click', (e) => {
+            document.getElementById('flipToFront').addEventListener('click', function(e) {
                 e.stopPropagation();
                 letterInner.classList.remove('flipped');
             });
 
-            // ==================== LOVE COUNTER ====================
-            const startDate = new Date('2024-02-14T00:00:00'); // Valentine's Day
+            // COUNTER (local time)
+            var startDate = new Date(2024, 1, 14, 0, 0, 0); // Feb 14, local midnight
             function updateCounter() {
-                const now = new Date();
-                let diff = now - startDate;
+                var now = new Date();
+                var diff = now - startDate;
                 if (diff < 0) diff = 0;
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((diff / (1000 * 60)) % 60);
-                const seconds = Math.floor((diff / 1000) % 60);
+                var days = Math.floor(diff / 86400000);
+                var hours = Math.floor((diff / 3600000) % 24);
+                var mins = Math.floor((diff / 60000) % 60);
+                var secs = Math.floor((diff / 1000) % 60);
                 document.getElementById('daysVal').textContent = days;
                 document.getElementById('hoursVal').textContent = hours;
-                document.getElementById('minsVal').textContent = minutes;
-                document.getElementById('secsVal').textContent = seconds;
+                document.getElementById('minsVal').textContent = mins;
+                document.getElementById('secsVal').textContent = secs;
             }
             setInterval(updateCounter, 1000);
             updateCounter();
 
-            // ==================== FLOATING HEARTS ====================
+            // HEARTS
             function spawnHeartAt(x, y) {
-                const heart = document.createElement('div');
+                var heart = document.createElement('div');
                 heart.className = 'heart';
-                heart.style.left = x - 12 + 'px';
-                heart.style.top = y - 12 + 'px';
-                // random size variation
-                const scale = Math.random() * 0.5 + 0.8;
-                heart.style.transform = `scale(${scale}) rotate(-45deg)`;
+                heart.style.left = (x - 12) + 'px';
+                heart.style.top = (y - 12) + 'px';
                 document.body.appendChild(heart);
-                heart.addEventListener('animationend', () => heart.remove());
+                heart.addEventListener('animationend', function() { heart.remove(); });
             }
-
             function spawnRandomHeart() {
-                const x = Math.random() * window.innerWidth;
-                const y = window.innerHeight - 20;
-                spawnHeartAt(x, y);
+                spawnHeartAt(Math.random() * window.innerWidth, window.innerHeight - 20);
             }
-
-            // Spawn hearts every 2.5 seconds
             setInterval(spawnRandomHeart, 2500);
 
-            // Click anywhere on body to spawn heart (except interactive elements)
-            document.body.addEventListener('click', (e) => {
-                if (e.target.closest('button, input, .envelope, .player, .wish-container, .lang-btn'))
-                    return;
+            document.body.addEventListener('click', function(e) {
+                if (e.target.closest('button, input, .envelope, .player, .wish-container, .lang-btn')) return;
                 spawnHeartAt(e.clientX, e.clientY);
             });
 
-            // ==================== MUSIC PLAYER (FAKE) ====================
-            const player = document.getElementById('player');
-            const playBtn = document.getElementById('playBtn');
-            const progressFill = document.getElementById('progressFill');
-            let playing = false;
-            let progressInterval = null;
-            let progress = 0;
+            // MUSIC PLAYER
+            var player = document.getElementById('player');
+            var progressFill = document.getElementById('progressFill');
+            var playing = false;
+            var progressInterval = null;
+            var progress = 0;
 
-            playBtn.addEventListener('click', () => {
+            playBtnEl.addEventListener('click', function() {
                 if (playing) {
-                    // pause
                     playing = false;
                     player.classList.remove('playing');
-                    playBtn.textContent = i18n[currentLang].playBtnPlay;
                     clearInterval(progressInterval);
                 } else {
-                    // play
                     playing = true;
                     player.classList.add('playing');
-                    playBtn.textContent = i18n[currentLang].playBtnPause;
                     progress = 0;
                     progressFill.style.width = '0%';
-                    progressInterval = setInterval(() => {
+                    progressInterval = setInterval(function() {
                         progress += 1;
                         if (progress >= 100) {
                             clearInterval(progressInterval);
                             playing = false;
                             player.classList.remove('playing');
-                            playBtn.textContent = i18n[currentLang].playBtnPlay;
                             progressFill.style.width = '100%';
-                            // love message
-                            const msg = document.createElement('div');
-                            msg.style.position = 'fixed';
-                            msg.style.bottom = '100px';
-                            msg.style.left = '50%';
-                            msg.style.transform = 'translateX(-50%)';
-                            msg.style.color = '#ffd700';
-                            msg.style.fontSize = '1.5rem';
-                            msg.style.zIndex = '300';
+                            var msg = document.createElement('div');
+                            msg.style.cssText = 'position:fixed;bottom:15vh;left:50%;transform:translateX(-50%);color:#ffd700;font-size:1.5rem;z-index:300;pointer-events:none;';
                             msg.textContent = '💖 I love you! 💖';
                             document.body.appendChild(msg);
-                            setTimeout(() => msg.remove(), 3000);
+                            setTimeout(function(){ msg.remove(); }, 3000);
                         } else {
                             progressFill.style.width = progress + '%';
                         }
                     }, 300);
                 }
-                // update play button text on language change? We rely on i18n but play button is static unless we update
+                updatePlayBtnText();
             });
 
-            // Update play button text on language change by overriding applyLanguage
-            const originalApply = applyLanguage;
-            applyLanguage = function(lang) {
-                originalApply(lang);
-                if (playing) {
-                    playBtn.textContent = i18n[lang].playBtnPause;
-                } else {
-                    playBtn.textContent = i18n[lang].playBtnPlay;
-                }
-            };
-
-            // ==================== WISH FEATURE ====================
-            document.getElementById('wishBtn').addEventListener('click', () => {
-                const input = document.getElementById('wishInput');
-                const wish = input.value.trim();
+            // WISH
+            document.getElementById('wishBtn').addEventListener('click', function() {
+                var input = document.getElementById('wishInput');
+                var wish = input.value.trim();
                 if (!wish) return;
                 input.value = '';
-                const wishStar = document.createElement('div');
+                var wishStar = document.createElement('div');
                 wishStar.textContent = '⭐ ' + wish;
-                wishStar.style.position = 'fixed';
-                wishStar.style.bottom = '120px';
-                wishStar.style.right = '40px';
-                wishStar.style.color = '#ffd700';
-                wishStar.style.fontSize = '1.2rem';
-                wishStar.style.zIndex = '350';
-                wishStar.style.pointerEvents = 'none';
-                wishStar.style.animation = 'wishFloat 4s ease-out forwards';
+                wishStar.style.cssText = 'position:fixed;bottom:15vh;right:5vw;color:#ffd700;font-size:1.2rem;z-index:350;pointer-events:none;animation:wishFloat 4s ease-out forwards;';
                 document.body.appendChild(wishStar);
-                wishStar.addEventListener('animationend', () => wishStar.remove());
+                wishStar.addEventListener('animationend', function() { wishStar.remove(); });
             });
 
-            // Add wishFloat keyframes via style tag
-            const styleSheet = document.createElement("style");
-            styleSheet.textContent = `
-                @keyframes wishFloat {
-                    0% { opacity: 1; transform: translateY(0) scale(1); }
-                    100% { opacity: 0; transform: translateY(-300px) scale(1.3); }
-                }
-            `;
-            document.head.appendChild(styleSheet);
-
-            // Start animation
-            requestAnimationFrame(animate);
-
-            // Initial shooting star launch
-            setTimeout(() => { shootingStar.launch(); }, 1000);
-
-            // Handle window resize for envelope repositioning maybe not needed
+            // Start
+            requestAF(animate);
+            setTimeout(function() { shootingStar.launch(); }, 1000);
         })();
     </script>
 </body>
